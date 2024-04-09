@@ -17,10 +17,23 @@ const Button=styled.button`
   cursor: pointer;
 `;
 
+const Input = styled.input`
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 0.8rem 1.2rem;
+`;
+
+const StyledApp = styled.div`
+  background-color: orangered;
+  padding: 20px;
+
+`
+
 export default function App() {
-  return <div>
+  return <StyledApp>
     <H1>The wild oasis</H1>
     <Button onClick={()=> alert("Check in")}>Check in</Button>
     <Button onClick={()=> alert("Check out")}>Check out</Button>
-    </div>;
+    <Input type="number" placeholder="Number of guests"/>
+    </StyledApp>;
 }
