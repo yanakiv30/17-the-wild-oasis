@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { QueryClient } from "@tanstack/react-query";
+
 import GlobalStyles from "./styles/GlobalStyles";
 import DashBoard from "./pages/DashBoard";
 import Bookings from "./pages/Bookings";
@@ -9,6 +11,8 @@ import Account from "./pages/Account";
 import Login from "./pages/Login";
 import PageNotFound from "./pages/PageNotFound";
 import AppLayout from "./ui/AppLayout";
+
+new QueryClient()
 
 export default function App() {
   return (
