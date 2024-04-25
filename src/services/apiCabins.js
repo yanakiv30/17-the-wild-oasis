@@ -9,17 +9,21 @@ export async function getCabins() {
   return data;
 }
 
-export async function createCabin(newCabin){}
+export async function createCabin(newCabin) {
+  const { data, error } = await supabase.from("cabins").insert([newCabin]);
+
+  if (error) {
+    console.log(error);
+    throw new Error("Cabin could not be created");
+  }
+}
 
 export async function deleteCabin(id) {
-  const { data, error } = await supabase
-    .from('cabins')
-    .delete()
-    .eq('id', id)
+  const { data, error } = await supabase.from("cabins").delete().eq("id", id);
 
-    if (error) {
-      console.log(error);
-      throw new Error("Cabin could not be deleted");
-    }
-    return data;
+  if (error) {
+    console.log(error);
+    throw new Error("Cabin could not be deleted");
   }
+  return data;
+}
