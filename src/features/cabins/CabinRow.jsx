@@ -1,8 +1,5 @@
 import styled from "styled-components";
 import { formatCurrency } from "../../utils/helpers";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteCabin } from "../../services/apiCabins";
-import toast from "react-hot-toast/headless";
 import { useState } from "react";
 import CreateCabinForm from "./CreateCabinForm";
 import { useDeleteCabin } from "./useDeleteCabin";
@@ -48,6 +45,7 @@ const Discount = styled.div`
 
 export default function CabinRow({ cabin }) {
   const [showForm, setShowForm] = useState(false);
+  const {isDeleting, deleteCabin}= useDeleteCabin();
 
   const {
     id: cabinId,
@@ -58,7 +56,7 @@ export default function CabinRow({ cabin }) {
     image,
   } = cabin;
 
-  const {isDeleting, deleteCabin}= useDeleteCabin();
+ 
 
     // onSuccess: () => {
     //   toast.success("Cabin successfully deleted");
