@@ -37,4 +37,4 @@ function addCabin() {
 //     </div>
 //   );
 // }
-export default AddCabin;
+export default addCabin;
