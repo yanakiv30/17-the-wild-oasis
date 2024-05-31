@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import { formatCurrency } from "../../utils/helpers";
-import { useState } from "react";
 import CreateCabinForm from "./CreateCabinForm";
 import { useDeleteCabin } from "./useDeleteCabin";
 import { HiSquare2Stack } from "react-icons/hi2";
 import { HiPencil, HiTrash } from "react-icons/hi";
 import { useCreateCabin } from "./useCreateCabin";
+import Modal from "../../ui/Modal";
+import ConfirmDelete from "../../ui/ConfirmDelete";
 
 const TableRow = styled.div`
   display: grid;
@@ -47,9 +48,8 @@ const Discount = styled.div`
 `;
 
 export default function CabinRow({ cabin }) {
-  const [showForm, setShowForm] = useState(false);
-  const {isDeleting, deleteCabin}= useDeleteCabin();
-  const {isCreating, createCabin}=useCreateCabin();
+  const { isDeleting, deleteCabin } = useDeleteCabin();
+  const { isCreating, createCabin } = useCreateCabin();
 
   const {
     id: cabinId,
@@ -58,45 +58,67 @@ export default function CabinRow({ cabin }) {
     regularPrice,
     discount,
     image,
-    description
+    description,
   } = cabin;
 
   function handleDuplicate() {
     createCabin({
-    name: `Copy of ${name}`,
-    maxCapacity,
-    regularPrice,
-    discount,
-    image,
-    description
-    })
-  } 
-    // onSuccess: () => {
-    //   toast.success("Cabin successfully deleted");
-    //   queryClient.invalidateQueries({
-    //     queryKey: ["cabins"],
-    //   });
-    // },
-    // onError: (err) => toast.error(err.message),
+      name: `Copy of ${name}`,
+      maxCapacity,
+      regularPrice,
+      discount,
+      image,
+      description,
+    });
+  }
+  // onSuccess: () => {
+  //   toast.success("Cabin successfully deleted");
+  //   queryClient.invalidateQueries({
+  //     queryKey: ["cabins"],
+  //   });
+  // },
+  // onError: (err) => toast.error(err.message),
   return (
-    <>
     <TableRow role="row">
       <Img src={image} />
       <Cabin>{name}</Cabin>
       <div>Fits up to {maxCapacity} guests</div>
       <Price>{formatCurrency(regularPrice)}</Price>
-      {discount ? (<Discount>{formatCurrency(discount)}</Discount>)
-      : (<span>&mdash;</span>)}
+      {discount ? (
+        <Discount>{formatCurrency(discount)}</Discount>
+      ) : (
+        <span>&mdash;</span>
+      )}
       <div>
-        <button disabled={isCreating} onClick={handleDuplicate}><HiSquare2Stack/></button>
-        <button onClick={() => setShowForm((show) => !show)}><HiPencil/></button>
+        <button disabled={isCreating} onClick={handleDuplicate}>
+          <HiSquare2Stack />
+        </button>
 
-        <button onClick={() => deleteCabin(cabinId)} disabled={isDeleting}>
-          <HiTrash/></button>
+        <Modal>
+          <Modal.Open opens="edit">
+            <button>
+              <HiPencil />
+            </button>
+          </Modal.Open>
+          <Modal.Window name="edit">
+            <CreateCabinForm cabinToEdit={cabin} />
+          </Modal.Window>
+
+          <Modal.Open>
+            <button>
+              <HiTrash />
+            </button>
+          </Modal.Open>
+
+          <Modal.Window>
+            <ConfirmDelete
+              resourceName="cabins"
+              disabled={isDeleting}
+              onConfirm={() => deleteCabin(cabinId)}
+            ></ConfirmDelete>
+          </Modal.Window>
+        </Modal>
       </div>
     </TableRow>
-
-    {showForm&& <CreateCabinForm cabinToEdit={cabin} />}
-    </>
   );
 }
