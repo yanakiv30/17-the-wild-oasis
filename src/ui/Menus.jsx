@@ -1,3 +1,4 @@
+import { createContext } from "react";
 import styled from "styled-components";
 
 const Menu = styled.div`
@@ -60,7 +61,7 @@ const StyledButton = styled.button`
     transition: all 0.3s;
   }
 `;
-
+const MenusContext= createContext();
 function Menus({ children }) {
   return <div>{children}</div>;
 }
@@ -71,9 +72,11 @@ function List({id}) {};
 
 function Button ({children}) {};
 
-Menus.Menu= Menu;
+ Menus.Menu= Menu;
+
 Menus.Toggle=Toggle;
 Menu.List=List;
 Menu.Button=Button;
 
+export {Menu};
 export default Menus;
