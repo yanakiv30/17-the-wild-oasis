@@ -8,6 +8,7 @@ import { useCreateCabin } from "./useCreateCabin";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import Table from "../../ui/Table";
+import Menus from "../../ui/Menus";
 
 // const TableRow = styled.div`
 //   display: grid;
@@ -48,7 +49,7 @@ const Discount = styled.div`
   color: var(--color-green-700);
 `;
 
-export default function CabinRow({ cabin }) {
+function CabinRow({ cabin }) {
   const { isDeleting, deleteCabin } = useDeleteCabin();
   const { isCreating, createCabin } = useCreateCabin();
 
@@ -105,13 +106,13 @@ export default function CabinRow({ cabin }) {
             <CreateCabinForm cabinToEdit={cabin} />
           </Modal.Window>
 
-          <Modal.Open opens='delete'>
+          <Modal.Open opens="delete">
             <button>
               <HiTrash />
             </button>
           </Modal.Open>
 
-          <Modal.Window name='delete'>
+          <Modal.Window name="delete">
             <ConfirmDelete
               resourceName="cabins"
               disabled={isDeleting}
@@ -119,7 +120,17 @@ export default function CabinRow({ cabin }) {
             />
           </Modal.Window>
         </Modal>
+        {/* <Menus.Menu>
+          <Menus.Toggle id={cabinId} />
+
+          <Menu.List id={cabinId}>
+            <Menu.Button>Duplicate</Menu.Button>
+            <Menu.Button>Edit</Menu.Button>
+            <Menu.Button>Delete</Menu.Button>
+          </Menu.List>
+        </Menus.Menu> */}
       </div>
     </Table.Row>
   );
 }
+export default CabinRow;
