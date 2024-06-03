@@ -94,7 +94,8 @@ function List({ id,children }) {
   const { openId } = useContext(MenusContext);
   if (openId !== id) return null;
 
-  return createPortal(<StyledList>{children}</StyledList>,document.body);
+  return createPortal(<StyledList position={{x:20, y:20}}>
+    {children}</StyledList>,document.body);
 }
 
 function Button({ children }) {
@@ -108,8 +109,8 @@ function Button({ children }) {
 Menus.Menu = Menu;
 
 Menus.Toggle = Toggle;
-Menu.List = List;
-Menu.Button = Button;
+Menus.List = List;
+Menus.Button = Button;
 
-export { Menu };
+
 export default Menus;
