@@ -7,7 +7,7 @@ const StyledFilter = styled.div`
   border-radius: var(--border-radius-sm);
   padding: 0.4rem;
   display: flex;
-  gap: 0.4rem;
+  gap: 0.4rem; 
 `;
 
 const FilterButton = styled.button`
@@ -32,4 +32,15 @@ const FilterButton = styled.button`
     background-color: var(--color-brand-600);
     color: var(--color-brand-50);
   }
-`;
+`; 
+
+function Filter() {
+  return <StyledFilter>
+    <FilterButton>All</FilterButton>
+    <FilterButton>No discount</FilterButton>
+    <FilterButton>With discount</FilterButton>
+
+  </StyledFilter>
+}
+export default Filter
+
