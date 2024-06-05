@@ -39,6 +39,7 @@ function Filter() {
   const [searchParams, setSearchParams] = useSearchParams();
   function handleClick(value) {
     searchParams.set("discount", value);
+    setSearchParams(searchParams);
   }
 
   return (
